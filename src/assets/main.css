@@ -4,6 +4,7 @@
 
 body {
   font-family: 'Roboto', sans-serif;
+  @apply bg-gray-200 dark:bg-gray-700;
 }
 
 @layer components {
@@ -12,5 +13,11 @@ body {
   }
   .btn-primary {
     @apply bg-indigo-500 hover:bg-indigo-800 disabled:bg-indigo-300 text-white;
+  }
+  .text-primary {
+    @apply text-gray-700 dark:text-gray-200;
+  }
+  .link-text-primary {
+    @apply text-indigo-800 hover:text-indigo-500 dark:text-indigo-300 dark:hover:text-indigo-50;
   }
 }

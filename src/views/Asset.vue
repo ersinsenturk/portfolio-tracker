@@ -34,14 +34,12 @@ const minY = ref()
 const maxY = ref()
 onBeforeMount(async () => {
   try {
-    await assetStore.getAssetData()
+    await assetStore.getAssetData(route.params.id)
   } catch (error) {
     console.error()
   } finally {
     createChart()
   }
-
-  console.log(data.value)
 })
 
 const createChart = () => {

@@ -1,4 +1,7 @@
 <template>
+  <card>
+    <template #title> Holdings </template>
+  </card>
   <div>
     Portfolio
     <div>
@@ -9,6 +12,7 @@
 
 <script setup>
 import { reactive } from 'vue'
+
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Doughnut } from 'vue-chartjs'
 ChartJS.register(ArcElement, Tooltip, Legend)

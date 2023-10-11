@@ -1,17 +1,46 @@
 <template>
-  <div class="grid grid-cols-6 bg-gray-50 dark:bg-gray-700">
+  <div class="grid grid-cols-6">
     <Header class="col-span-full"></Header>
     <Sidebar class="col-span-1"></Sidebar>
-    <div class="col-span-5 px-8 py-6 min-h-[80vh]">
-      <router-view></router-view>
+    <div class="col-span-5 px-8 py-6">
+      <router-view v-slot="{ Component }">
+        <transition name="fade" mode="out-in">
+          <div :key="route.name">
+            <component :is="Component" />
+          </div>
+        </transition>
+      </router-view>
     </div>
   </div>
-  <div></div>
 </template>
 
 <script setup>
 import Header from '@/components/global/Header.vue'
 import Sidebar from '@/components/global/Sidebar.vue'
+import { onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import { useAssetStore } from '@/stores/asset'
+const route = useRoute()
+const assetStore = useAssetStore()
+
+onMounted(() => {
+  assetStore.getBTCPrice()
+  assetStore.fetchAssetsList()
+})
+// const sidebarGridClass = ref('grid-cols-6')
+// const sidebarView = (val) => {
+//   sidebarGridClass.value = val === 'close' ? 'grid-cols-12' : 'grid-cols-6'
+// }
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

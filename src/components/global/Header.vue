@@ -1,8 +1,8 @@
 <template>
   <div
-    class="flex justify-between bg-white dark:bg-gray-800 dark:border-b dark:border-gray-700 p-4 shadow-sm relative"
+    class="flex justify-between items-center bg-white dark:bg-gray-800 dark:border-b dark:border-gray-700 p-4 shadow-sm relative"
   >
-    <div class="logo text-3xl dark:text-gray-200">
+    <div class="logo text-3xl text-primary">
       <div
         class="flex lg:hidden items-center justify-center w-12 h-12 border-4 border-black tracking-wide"
       >
