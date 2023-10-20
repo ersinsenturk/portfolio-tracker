@@ -3,6 +3,8 @@ import { ref, computed } from 'vue'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { doc, setDoc, getDoc } from 'firebase/firestore'
 import { auth, onAuthStateChanged, db } from '@/includes/firebase'
+import { useToast } from 'vue-toastification'
+const toast = useToast()
 
 export const useAuthStore = defineStore('auth', () => {
   const userLoggedIn = ref(false)
@@ -26,7 +28,9 @@ export const useAuthStore = defineStore('auth', () => {
       })
 
       userLoggedIn.value = true
+      toast.success('Register Successful')
     } catch (error) {
+      toast.error('Register Failed')
       console.error(error)
     }
   }
@@ -36,8 +40,11 @@ export const useAuthStore = defineStore('auth', () => {
       const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password)
       const { uid } = userCredential.user
       await getUser(uid)
+      toast.success('Login Successful')
+      return uid
     } catch (error) {
-      console.error(error)
+      toast.error('Login Failed')
+      throw Error(error)
     }
   }
 
@@ -62,6 +69,7 @@ export const useAuthStore = defineStore('auth', () => {
       }
       userLoggedIn.value = true
     } else {
+      toast.error('No such user')
       console.log('No such document!')
     }
   }
@@ -73,7 +81,9 @@ export const useAuthStore = defineStore('auth', () => {
       user.value.transactions.push(data)
       const transactionRef = doc(db, 'users', user.value.id)
       setDoc(transactionRef, { transactions: user.value.transactions }, { merge: true })
+      toast.success('Transaction added')
     } catch (error) {
+      toast.error('Failed')
       console.error(error)
     }
   }
@@ -84,7 +94,9 @@ export const useAuthStore = defineStore('auth', () => {
       user.value.transactions.splice(index, 1)
       const transactionRef = doc(db, 'users', user.value.id)
       setDoc(transactionRef, { transactions: user.value.transactions }, { merge: true })
+      toast.success('Transaction deleted')
     } catch (error) {
+      toast.error('Failed')
       console.error(error)
     }
   }

@@ -34,7 +34,6 @@ export const useAssetStore = defineStore('asset', () => {
   const portfolioAssetsPrice = ref()
   const getPortfolioAssetsPrice = async (id) => {
     const data = await AJAX(`${CG_API_URL}/simple/price?ids=${id}&vs_currencies=usd`)
-
     portfolioAssetsPrice.value = data
   }
 

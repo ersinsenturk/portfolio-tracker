@@ -61,7 +61,8 @@ const router = useRouter()
 
 const submitForm = async (values) => {
   try {
-    await authStore.login(values)
+    const logged = await authStore.login(values)
+    if (!logged) return
     router.push({ name: 'Home' })
   } catch (error) {
     console.error(error)
