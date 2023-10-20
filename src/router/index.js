@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import Home from '../views/Home.vue'
+import Home from '@/views/Home.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,13 +42,16 @@ const router = createRouter({
       path: '/asset/:id',
       name: 'Asset',
       component: () => import('../views/Asset.vue')
-    }
+    },
+    { path: '/:pathMatch(.*)*', redirect: { name: 'Home', params: {} } }
   ]
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const auth = useAuthStore()
-  if (to.meta.requiresAuth && !auth.userLoggedIn) {
+  const isAuth = await auth.getUserState()
+
+  if (to.meta.requiresAuth && !isAuth) {
     next({ name: 'Auth' })
   } else {
     next()

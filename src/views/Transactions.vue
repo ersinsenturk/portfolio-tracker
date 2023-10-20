@@ -8,7 +8,8 @@
         </button>
       </div>
     </template>
-    <div class="relative">
+    <div v-if="!filtered.length">Add Some Transaction</div>
+    <div v-if="filtered.length" class="relative">
       <select
         v-model="filterOpt"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm mb-4 rounded-lg block px-2 py-2 outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
@@ -73,10 +74,11 @@
         </thead>
         <tbody>
           <transaction
-            v-for="transaction in filterTransactions"
+            v-for="transaction in filtered"
             :key="transaction"
             :transaction="transaction"
             @editTransaction="editTransaction"
+            @removeTransaction="removeTransaction"
           ></transaction>
         </tbody>
       </table>
@@ -93,9 +95,11 @@
 </template>
 
 <script setup>
-import { computed, onMounted, reactive, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import Transaction from '@/components/transactions/Transaction.vue'
 import TransactionModal from '@/components/transactions/TransactionModal.vue'
+import { useAuthStore } from '@/stores/auth'
+const authStore = useAuthStore()
 
 const isModalOpen = ref(false)
 const toggleTransactionModal = () => {
@@ -104,73 +108,49 @@ const toggleTransactionModal = () => {
 }
 
 const dataEdit = ref()
-const editTransaction = (tr) => {
+const editTransaction = (transaction) => {
   toggleTransactionModal()
-  dataEdit.value = tr
+  dataEdit.value = transaction
 }
-
-const transactions = reactive([
-  {
-    id: 1,
-    asset: { id: 'link', name: 'link', symbol: 'link' },
-    type: 'buy',
-    date: '2222-11-08',
-    shares: 100,
-    price: 10,
-    sum: 101
-  },
-  {
-    id: 2,
-    asset: { id: 'xtc', name: 'xtc', symbol: 'xtc' },
-    type: 'sell',
-    date: '1222-10-10',
-    shares: 202,
-    price: 20,
-    sum: 102
-  },
-  {
-    id: 3,
-    asset: { id: 'aaa', name: 'aaa', symbol: 'aaa' },
-    type: 'sell',
-    date: '1233-10-10',
-    shares: 23,
-    price: 34,
-    sum: 105
-  },
-  {
-    id: 4,
-    asset: { id: 'qwe', name: 'qwe', symbol: 'qwe' },
-    type: 'buy',
-    date: '2022-11-08',
-    shares: 66,
-    price: 104,
-    sum: 10
-  }
-])
+const removeTransaction = async (transaction) => {
+  await authStore.deleteTransaction(transaction)
+}
 
 const filterOpt = ref('all')
 let orderAsc = true
 const orderTransactions = (sortOpt = 'date') => {
+  if (!filtered.value) return
   if (orderAsc) {
-    transactions.sort((a, b) => b[sortOpt] - a[sortOpt])
+    filtered.value.sort((a, b) => b[sortOpt] - a[sortOpt])
   } else {
-    transactions.sort((a, b) => a[sortOpt] - b[sortOpt])
+    filtered.value.sort((a, b) => a[sortOpt] - b[sortOpt])
   }
   orderAsc = !orderAsc
 }
-const filterTransactions = computed(() => {
-  if (filterOpt.value !== 'all') {
-    return transactions.filter((item) => item.type === filterOpt.value)
+const filtered = ref([])
+watch(filterOpt, (val) => {
+  if (val !== 'all') {
+    filtered.value = transactions.value.filter((item) => item.type === val)
+  } else {
+    filtered.value = transactions.value
   }
-  return transactions
 })
 
+let transactions = ref([])
 onMounted(() => {
+  transactions.value = authStore.getTransactions
   orderTransactions()
+  filtered.value = transactions.value
 })
 
-const submitFormData = (formData) => {
-  console.log(formData)
+const submitFormData = async (formData) => {
+  const data = { ...formData, sum: calcSum(formData) }
+  await authStore.addTransaction(data)
+  transactions.value = authStore.user.transactions
+  isModalOpen.value = false
+}
+const calcSum = (data) => {
+  return data.price * data.shares
 }
 </script>
 

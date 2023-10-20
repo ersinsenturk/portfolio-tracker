@@ -18,14 +18,26 @@
 import Header from '@/components/global/Header.vue'
 import Sidebar from '@/components/global/Sidebar.vue'
 import { onMounted } from 'vue'
+import { auth, onAuthStateChanged } from '@/includes/firebase'
+import { useAuthStore } from '@/stores/auth'
 import { useRoute } from 'vue-router'
 import { useAssetStore } from '@/stores/asset'
 const route = useRoute()
 const assetStore = useAssetStore()
+const authStore = useAuthStore()
 
 onMounted(() => {
   assetStore.getBTCPrice()
   assetStore.fetchAssetsList()
+  onAuthStateChanged(
+    auth,
+    (loggedUser) => {
+      if (loggedUser) authStore.getUser(loggedUser.uid)
+    },
+    (error) => {
+      console.error(error)
+    }
+  )
 })
 // const sidebarGridClass = ref('grid-cols-6')
 // const sidebarView = (val) => {

@@ -24,28 +24,32 @@
         </div>
         <!-- Modal body -->
         <div class="p-6 space-y-6">
-          <form @submit.prevent="submitForm">
+          <Form @submit="submitForm" :validation-schema="schema">
             <div class="grid grid-cols-2 gap-2">
-              <div class="mb-4 relative" id="assetContainer">
+              <div class="mb-6 relative" id="assetContainer">
                 <label
-                  for="asset_name"
+                  for="asset"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >Asset Name or Symbol</label
                 >
-                <input
+                <Field
                   type="text"
-                  id="asset_name"
+                  id="asset"
+                  name="asset"
                   class="hidden bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required
                   v-model="form.asset"
                 />
-                <div
+                <label
                   @click="isDropdownOpen = true"
-                  class="bg-gray-50 h-10 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none block w-full p-2.5 dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-200 dark:text-white"
                 >
                   {{ form.asset?.symbol?.toUpperCase() }}
-                </div>
-
+                </label>
+                <ErrorMessage
+                  name="asset"
+                  class="text-sm text-red-500 font-bold absolute -bottom-5"
+                />
                 <div
                   id="dropdownSearch"
                   class="absolute left-0 top-full z-10 bg-white rounded-lg shadow w-full dark:bg-gray-700"
@@ -93,61 +97,82 @@
                   </ul>
                 </div>
               </div>
-              <div class="mb-4">
+              <div class="mb-6 relative">
                 <label
-                  for="countries"
+                  for="type"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >Transaction Type</label
                 >
-                <select
-                  id="countries"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                <Field
+                  as="select"
+                  name="type"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none block w-full p-2.5 dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-200 dark:text-white"
                   v-model="form.type"
                 >
                   <option value="buy">BUY</option>
                   <option value="sell">SELL</option>
-                </select>
+                </Field>
+                <ErrorMessage
+                  name="type"
+                  class="text-sm text-red-500 font-bold absolute -bottom-5"
+                />
               </div>
-              <div class="mb-4">
+              <div class="mb-6 relative">
                 <label
-                  for="trade_date"
+                  for="date"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >Trade Date</label
                 >
-                <input
+                <Field
                   type="date"
-                  id="trade_date"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  id="date"
+                  name="date"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none block w-full p-2.5 dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-200 dark:text-white"
                   required
                   v-model="form.date"
                 />
+                <ErrorMessage
+                  name="date"
+                  class="text-sm text-red-500 font-bold absolute -bottom-5"
+                />
               </div>
-              <div class="mb-4">
+              <div class="mb-6 relative">
                 <label
                   for="shares"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >Shares</label
                 >
-                <input
+                <Field
                   type="text"
                   id="shares"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  name="shares"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none block w-full p-2.5 dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-200 dark:text-white"
                   required
                   v-model="form.shares"
                 />
+                <ErrorMessage
+                  name="shares"
+                  class="text-sm text-red-500 font-bold absolute -bottom-5"
+                />
               </div>
-              <div class="mb-4">
+              <div class="mb-6 relative">
                 <label
-                  for="share_price"
+                  for="price"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >Share Price</label
                 >
-                <input
+                <Field
                   type="text"
-                  id="share_price"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  id="price"
+                  name="price"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none block w-full p-2.5 dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-200 dark:text-white"
                   required
                   v-model="form.price"
+                  placeholder="$"
+                />
+                <ErrorMessage
+                  name="price"
+                  class="text-sm text-red-500 font-bold absolute -bottom-5"
                 />
               </div>
             </div>
@@ -156,7 +181,7 @@
                 {{ props.dataEdit ? 'Save' : 'Add' }}
               </button>
             </div>
-          </form>
+          </Form>
         </div>
       </div>
     </div>
@@ -165,6 +190,8 @@
 
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
+import { Form, Field, ErrorMessage } from 'vee-validate'
+import * as yup from 'yup'
 
 const props = defineProps(['dataEdit'])
 const emit = defineEmits(['toggleTransactionModal', 'submitFormData'])
@@ -195,8 +222,8 @@ const form = reactive({
   price: ''
 })
 
-const submitForm = () => {
-  emit('submitFormData', form)
+const submitForm = (values) => {
+  emit('submitFormData', values)
 }
 
 const loadEditData = () => {
@@ -209,6 +236,20 @@ const loadEditData = () => {
 onMounted(() => {
   if (props.dataEdit) loadEditData()
 })
+
+const reqText = 'This field is required'
+const numText = 'This field must be a number'
+const schema = yup.object({
+  asset: yup.object().required().typeError(reqText),
+  type: yup.string().required(reqText),
+  date: yup.string().required(reqText),
+  shares: yup.number().required(reqText).positive().typeError(numText),
+  price: yup.number().required(reqText).positive().typeError(numText)
+})
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.dark input::-webkit-calendar-picker-indicator {
+  color-scheme: dark;
+}
+</style>

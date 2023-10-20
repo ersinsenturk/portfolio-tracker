@@ -27,7 +27,10 @@
           </span>
         </div>
       </label>
-      <router-link :to="{ name: 'Auth' }" class="btn btn-primary"> Login </router-link>
+      <router-link v-if="!userLoggedIn" :to="{ name: 'Auth' }" class="btn btn-primary">
+        Login
+      </router-link>
+      <button v-if="userLoggedIn" @click="authStore.logout" class="btn btn-primary">Logout</button>
     </div>
   </div>
 </template>
@@ -44,6 +47,11 @@ const toggleTheme = () => {
     document.documentElement.classList.remove('dark')
   }
 }
+
+import { useAuthStore } from '@/stores/auth'
+import { storeToRefs } from 'pinia'
+const authStore = useAuthStore()
+const { userLoggedIn } = storeToRefs(authStore)
 </script>
 
 <style scoped>

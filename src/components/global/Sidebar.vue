@@ -11,7 +11,7 @@
       >
         <fa-icon :icon="['fas', item.icon]" class="w-5 h-5 mr-2" />
 
-        <div>
+        <div class="hidden md:block">
           {{ item.name }}
         </div>
       </router-link>

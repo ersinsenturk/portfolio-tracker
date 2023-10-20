@@ -12,7 +12,7 @@ export const AJAX = async (url) => {
 
 const now = new Date()
 export const getLocalStorage = (key) => {
-  const setTime = localStorage.getItem('setTime')
+  const setTime = JSON.parse(localStorage.getItem(key))?.setTime
   const minutesDiff = (new Date(now).getTime() - new Date(setTime).getTime()) / 1000 / 60
   if (minutesDiff > REMOVE_LOCALDATA_MIN) localStorage.removeItem(key)
 
@@ -21,6 +21,5 @@ export const getLocalStorage = (key) => {
 }
 
 export const setLocalStorage = (key, data) => {
-  localStorage.setItem(key, JSON.stringify(data))
-  localStorage.setItem('setTime', now)
+  localStorage.setItem(key, JSON.stringify({ ...data, setTime: now }))
 }
