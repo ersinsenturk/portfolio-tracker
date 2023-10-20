@@ -27,10 +27,20 @@
           </span>
         </div>
       </label>
-      <router-link v-if="!userLoggedIn" :to="{ name: 'Auth' }" class="btn btn-primary">
+      <router-link
+        v-if="!userLoggedIn"
+        :to="{ name: 'Auth' }"
+        class="btn btn-primary text-sm md:text-base"
+      >
         Login
       </router-link>
-      <button v-if="userLoggedIn" @click="authStore.logout" class="btn btn-primary">Logout</button>
+      <button
+        v-if="userLoggedIn"
+        @click="authStore.logout"
+        class="btn btn-primary text-sm md:text-base"
+      >
+        Logout
+      </button>
     </div>
   </div>
 </template>

@@ -11,7 +11,7 @@
       >
         <router-link
           :to="{ name: 'Asset', params: { id: item.id } }"
-          class="px-2 py-1 leading-6 block text-primary"
+          class="px-2 py-1 leading-6 block text-primary text-sm md:text-base"
         >
           <span class="font-bold">
             {{ item.symbol.toUpperCase() }}

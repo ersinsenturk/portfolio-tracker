@@ -38,8 +38,8 @@ const sidebarItems = ref([
   { icon: 'house', name: 'Home', path: 'Home' },
   { icon: 'chart-pie', name: 'Portfolio', path: 'Portfolio' },
   { icon: 'newspaper', name: 'News', path: 'News' },
-  { icon: 'chart-line', name: 'Growth', path: 'Growth' },
   { icon: 'file-lines', name: 'Transactions', path: 'Transactions' }
+  // { icon: 'chart-line', name: 'Growth', path: 'Growth' },
 ])
 
 // const sidebarView = ref('open')

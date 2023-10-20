@@ -1,11 +1,11 @@
 <template>
   <div
-    class="flex w-1/3 mx-auto relative items-center bg-white dark:bg-gray-600 border border-gray-300 dark:border-gray-500 py-1 px-2"
+    class="flex md:w-1/3 mx-auto relative items-center bg-white dark:bg-gray-600 border border-gray-300 dark:border-gray-500 py-1 px-2"
   >
     <fa-icon :icon="['fas', 'magnifying-glass']" size="lg" class="dark:text-gray-200" />
     <input
       type="text"
-      class="basis-full bg-transparent leading-9 px-2 outline-none placeholder:text-sm dark:text-gray-200"
+      class="basis-full bg-transparent leading-9 px-2 outline-none placeholder:text-xs md:placeholder:text-sm dark:text-gray-200"
       placeholder="Enter the symbol or the name of cryptocurrency"
       @input="searchStore.search($event, assetStore.assetsList)"
       id="searchInput"

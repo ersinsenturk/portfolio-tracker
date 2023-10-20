@@ -1,7 +1,7 @@
 <template>
-  <card class="w-1/2 m-auto">
-    <div class="p-8 pb-0">
-      <ul class="flex flex-wrap mb-4">
+  <card class="md:w-1/2 m-auto">
+    <div class="md:pb-0 md:p-8">
+      <ul class="flex flex-wrap mb-2 md:mb-4">
         <li class="flex-auto text-center">
           <a
             class="block rounded py-3 px-4 transition dark:text-white"

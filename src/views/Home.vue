@@ -1,10 +1,10 @@
 <template>
   <div class="text-center mb-8">
-    <h1 class="text-3xl font-bold mb-4 text-primary">Search for a cryptocurrency</h1>
+    <h1 class="text-lg md:text-3xl font-bold mb-4 text-primary">Search for a cryptocurrency</h1>
     <search></search>
   </div>
 
-  <div class="grid grid-cols-2 gap-4">
+  <div class="grid md:grid-cols-2 gap-4">
     <card>
       <template #title>Trendings</template>
       <template #default>

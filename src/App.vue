@@ -2,7 +2,7 @@
   <div class="grid grid-cols-6">
     <Header class="col-span-full"></Header>
     <Sidebar class="col-span-1"></Sidebar>
-    <div class="col-span-5 px-8 py-6">
+    <div class="col-span-5 p-2 md:px-8 md:py-6">
       <router-view v-slot="{ Component }">
         <transition name="fade" mode="out-in">
           <div :key="route.name">

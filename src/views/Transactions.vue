@@ -9,7 +9,7 @@
       </div>
     </template>
     <div v-if="!filtered.length">Add Some Transaction</div>
-    <div v-if="filtered.length" class="relative">
+    <div v-if="filtered.length" class="relative overflow-x-auto">
       <select
         v-model="filterOpt"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm mb-4 rounded-lg block px-2 py-2 outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
@@ -25,8 +25,8 @@
           class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
         >
           <tr>
-            <th scope="col" class="px-6 py-3">Operation</th>
-            <th scope="col" class="px-6 py-3">
+            <th scope="col" class="p-2 md:px-6 md:py-3">Operation</th>
+            <th scope="col" class="p-2 md:px-6 md:py-3">
               <div class="group flex items-center">
                 Holding
                 <button @click="orderTransactions('symbol')" class="invisible group-hover:visible">
@@ -34,7 +34,7 @@
                 </button>
               </div>
             </th>
-            <th scope="col" class="px-6 py-3">
+            <th scope="col" class="p-2 md:px-6 md:py-3">
               <div class="group flex items-center">
                 Date
                 <button @click="orderTransactions('date')" class="invisible group-hover:visible">
@@ -42,7 +42,7 @@
                 </button>
               </div>
             </th>
-            <th scope="col" class="px-6 py-3">
+            <th scope="col" class="p-2 md:px-6 md:py-3">
               <div class="group flex items-center">
                 Shares
                 <button @click="orderTransactions('shares')" class="invisible group-hover:visible">
@@ -50,7 +50,7 @@
                 </button>
               </div>
             </th>
-            <th scope="col" class="px-6 py-3">
+            <th scope="col" class="p-2 md:px-6 md:py-3">
               <div class="group flex items-center">
                 Price
                 <button @click="orderTransactions('price')" class="invisible group-hover:visible">
@@ -58,7 +58,7 @@
                 </button>
               </div>
             </th>
-            <th scope="col" class="px-6 py-3">
+            <th scope="col" class="p-2 md:px-6 md:py-3">
               <div class="group flex items-center">
                 Sum
                 <button @click="orderTransactions('sum')" class="invisible group-hover:visible">
@@ -67,7 +67,7 @@
               </div>
             </th>
 
-            <th scope="col" class="px-6 py-3">
+            <th scope="col" class="p-2 md:px-6 md:py-3">
               <span class="sr-only">Edit</span>
             </th>
           </tr>

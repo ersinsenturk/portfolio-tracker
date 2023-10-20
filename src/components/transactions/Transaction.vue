@@ -1,27 +1,27 @@
 <template>
   <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-    <th
+    <td
       scope="row"
-      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+      class="p-2 md:px-6 md:py-4 whitespace-nowrap font-medium text-gray-900"
       :class="transaction.type === 'buy' ? 'text-green-600' : 'text-red-600'"
     >
       {{ transaction.type.toUpperCase() }}
-    </th>
-    <td class="px-6 py-4">
+    </td>
+    <td class="p-2 md:px-6 md:py-4 whitespace-nowrap">
       {{ transaction.asset.symbol.toUpperCase() }} <br />
       {{ transaction.asset.name }}
     </td>
-    <td class="px-6 py-4">{{ transaction.date }}</td>
-    <td class="px-6 py-4">{{ transaction.shares }}</td>
-    <td class="px-6 py-4">${{ transaction.price }}</td>
-    <td class="px-6 py-4">${{ transaction.sum }}</td>
+    <td class="p-2 md:px-6 md:py-4 whitespace-nowrap">{{ transaction.date }}</td>
+    <td class="p-2 md:px-6 md:py-4 whitespace-nowrap">{{ transaction.shares }}</td>
+    <td class="p-2 md:px-6 md:py-4 whitespace-nowrap">${{ transaction.price }}</td>
+    <td class="p-2 md:px-6 md:py-4 whitespace-nowrap">${{ transaction.sum }}</td>
 
-    <td class="px-6 py-4 text-right">
-      <button class="mr-4" @click="emit('editTransaction', transaction)">
-        <fa-icon :icon="['fas', 'pen-to-square']" size="lg" />
+    <td class="py-4 px-2 md:px-6 md:py-4 whitespace-nowrap flex text-right">
+      <button class="mr-3 md:mr-4" @click="emit('editTransaction', transaction)">
+        <fa-icon :icon="['fas', 'pen-to-square']" class="md:text-lg" />
       </button>
       <button @click="emit('removeTransaction', transaction)">
-        <fa-icon :icon="['fas', 'trash']" size="lg" class="text-red-400" />
+        <fa-icon :icon="['fas', 'trash']" class="text-red-400 md:text-lg" />
       </button>
     </td>
   </tr>

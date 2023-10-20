@@ -1,5 +1,5 @@
 <template>
-  <div class="relative px-6 py-6 lg:px-8">
+  <div class="relative md:px-6 md:py-6 lg:px-8">
     <Form @submit="submitForm" :validation-schema="loginSchema">
       <div class="relative z-0 w-full mb-8 group">
         <Field

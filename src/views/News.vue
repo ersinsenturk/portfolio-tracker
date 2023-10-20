@@ -1,15 +1,17 @@
 <template>
   <card v-for="news in newsList" :key="news" class="mb-4">
-    <a :href="news.url" target="_blank" class="flex">
-      <figure class="basis-1/6 mr-4">
+    <a :href="news.url" target="_blank" class="flex flex-col md:flex-row">
+      <figure class="md:basis-1/6 md:mr-4">
         <img :src="news.banner_image" :alt="news.title" />
       </figure>
       <div class="basis-full flex flex-col justify-between text-primary">
         <div class="mb-4">
-          <div class="font-bold text-xl">{{ news.title }}</div>
-          <div>{{ news.summary }}</div>
+          <div class="font-bold md:text-xl">{{ news.title }}</div>
+          <div class="text-sm md:text-base">{{ news.summary }}</div>
         </div>
-        <div>{{ formatDate(news.time_published) }} - {{ news.source }}</div>
+        <div class="text-sm md:text-base">
+          {{ formatDate(news.time_published) }} - {{ news.source }}
+        </div>
       </div>
     </a>
   </card>

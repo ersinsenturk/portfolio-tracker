@@ -1,8 +1,11 @@
 <template>
-  <div>Asset {{ route.params.id }}</div>
-  <div class="w-full max-h-[500px]">
-    <Line :data="data" :options="options" class="w-full" />
-  </div>
+  <card class="text-center">
+    <template #title>{{ assetName }}</template>
+
+    <div class="w-full max-h-[500px] flex justify-center">
+      <Line :data="data" :options="options" class="w-full" />
+    </div>
+  </card>
 </template>
 
 <script setup>
@@ -32,7 +35,10 @@ const data = ref({ labels: [], datasets: [] })
 const options = ref()
 const minY = ref()
 const maxY = ref()
+
+const assetName = ref()
 onBeforeMount(async () => {
+  assetName.value = route.params.id.toUpperCase()
   try {
     await assetStore.getAssetData(route.params.id)
   } catch (error) {
@@ -55,8 +61,8 @@ const createChart = () => {
     labels: labels.value,
     datasets: [
       {
-        label: 'BTC',
-        borderColor: '#FC2525',
+        label: '',
+        borderColor: 'rgb(99, 102, 241)',
         borderWidth: 2,
         pointStyle: false,
         point: 'none',
@@ -66,9 +72,21 @@ const createChart = () => {
   }
   options.value = {
     responsive: true,
-
+    plugins: {
+      legend: {
+        display: false
+      }
+    },
     scales: {
+      x: {
+        ticks: { color: 'rgb(0, 0, 0, 0.3)' },
+        grid: { color: 'rgb(0, 0, 0, 0.3)' },
+        border: { color: 'rgb(0, 0, 0, 0.3)' }
+      },
       y: {
+        ticks: { color: 'rgb(0, 0, 0, 0.3)' },
+        grid: { color: 'rgb(0, 0, 0, 0.3)' },
+        border: { color: 'rgb(0, 0, 0, 0.3)' },
         suggestedMin: minY.value - minY.value * 0.05,
         suggestedMax: maxY.value + maxY.value * 0.05
       }

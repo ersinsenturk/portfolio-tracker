@@ -27,12 +27,6 @@ const router = createRouter({
       component: () => import('../views/News.vue')
     },
     {
-      path: '/growth',
-      name: 'Growth',
-      component: () => import('../views/Growth.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
       path: '/transactions',
       name: 'Transactions',
       component: () => import('../views/Transactions.vue'),
@@ -44,6 +38,12 @@ const router = createRouter({
       component: () => import('../views/Asset.vue')
     },
     { path: '/:pathMatch(.*)*', redirect: { name: 'Home', params: {} } }
+    // {
+    //   path: '/growth',
+    //   name: 'Growth',
+    //   component: () => import('../views/Growth.vue'),
+    //   meta: { requiresAuth: true }
+    // },
   ]
 })
 
