@@ -39,10 +39,6 @@ onMounted(() => {
     }
   )
 })
-// const sidebarGridClass = ref('grid-cols-6')
-// const sidebarView = (val) => {
-//   sidebarGridClass.value = val === 'close' ? 'grid-cols-12' : 'grid-cols-6'
-// }
 </script>
 
 <style scoped>
