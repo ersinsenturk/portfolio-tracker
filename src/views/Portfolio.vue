@@ -1,7 +1,13 @@
 <template>
   <card>
     <template #title> Holdings </template>
-    <div class="grid md:grid-cols-3 gap-4">
+    <div v-if="!transactions">
+      <div>Add some transactions</div>
+      <router-link :to="{ name: 'Transactions' }" class="btn btn-primary"
+        >Go to Transitions</router-link
+      >
+    </div>
+    <div v-else class="grid md:grid-cols-3 gap-4">
       <summary-box class="col-span-1">
         <template #title>Value</template>
         ${{ portfolioValue }}
